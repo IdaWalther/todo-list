@@ -2,8 +2,9 @@
  li.setAttribute('id', index); */
 
 //Skapa en array av objects to-do items
-const todos = [{title: 'Item1', isCompleted: false}, {title: 'Item2', isCompleted: false},]
+const todos = [{title: 'Item1', isCompleted: true}, {title: 'Item2', isCompleted: false},]
 console.log(todos);
+
 
 /*
 //Skapar en array med to-do items
@@ -19,12 +20,22 @@ function addItemsToList() {
  list.innerHTML = "";
   //Går igenom alla items i arrayen och skapar en li av dem
   todos.forEach((item, index) => {
-    let li = document.createElement("li");
+    let li = document.createElement('li');
     list.appendChild(li);
-    li.innerHTML = `<input id="${'id', index}" type="checkbox"/>
-    <label for="${item.title}" class="tick"></label>
-    <span>${item.title}</span>
-    `
+    const inputElement = document.createElement('input');
+    inputElement.setAttribute('id', `id_${index}`);
+    inputElement.setAttribute('type', 'checkbox');
+    if(item.isCompleted){
+      inputElement.setAttribute('checked', true);
+      li.classList.add('inputChecked');
+    }
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', `id_${index}`);
+    labelElement.innerHTML = item.title;
+  
+
+    li.appendChild(inputElement);
+    li.appendChild(labelElement);
   });
 }
 
