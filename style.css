@@ -25,3 +25,7 @@ li {
 .inputChecked {
   text-decoration: line-through;
 }
+
+.delete {
+margin-left:10px;
+}

@@ -4,8 +4,6 @@
 //Skapa en array av objects to-do items
 const todos = [{title: 'Item1', isCompleted: true}, {title: 'Item2', isCompleted: false},]
 console.log(todos);
-
-
 /*
 //Skapar en array med to-do items
 const todos = ["Item1", "Item2"];*/
@@ -25,20 +23,23 @@ function addItemsToList() {
     const inputElement = document.createElement('input');
     inputElement.setAttribute('id', `id_${index}`);
     inputElement.setAttribute('type', 'checkbox');
+    
     if(item.isCompleted){
       inputElement.setAttribute('checked', true);
       li.classList.add('inputChecked');
-    }
+    } 
     const labelElement = document.createElement('label');
     labelElement.setAttribute('for', `id_${index}`);
     labelElement.innerHTML = item.title;
-  
-
     li.appendChild(inputElement);
     li.appendChild(labelElement);
+
+    const deleteBtn= document.createElement("button");
+    deleteBtn.classList.add("delete");
+    deleteBtn.innerHTML = "Delete";
+    labelElement.appendChild(deleteBtn);
   });
 }
-
 //Hämtar formuläret
 const todoForm = document.querySelector(".js-form-todo");
 
