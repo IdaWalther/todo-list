@@ -21,7 +21,6 @@ function addItemsToList() {
     let li = document.createElement('li');
     list.appendChild(li);
     const inputElement = document.createElement('input');
-    inputElement.setAttribute('id', `id_${index}`);
     inputElement.setAttribute('type', 'checkbox');
     
     if(item.isCompleted){
@@ -34,12 +33,14 @@ function addItemsToList() {
     li.appendChild(inputElement);
     li.appendChild(labelElement);
 
-    const deleteBtn= document.createElement("button");
+    const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete");
-    deleteBtn.innerHTML = "Delete";
-    labelElement.appendChild(deleteBtn);
+    deleteBtn.innerHTML = "X";
+    li.appendChild(deleteBtn); 
   });
 }
+
+
 //Hämtar formuläret
 const todoForm = document.querySelector(".js-form-todo");
 
@@ -56,7 +57,6 @@ function addNewItem() {
   addItemsToList();
   //Ser till att texten man skrivit in i formuläret försvinner 
   todoForm.reset()  
-  //
   }
 }
 
@@ -65,4 +65,19 @@ todoForm.addEventListener("submit", function(event) {
   //Ser till att sidan inte laddas om
  event.preventDefault();
   addNewItem();
+});
+
+//Hämtar alla element som har attributet som heter type=checkbox 
+const checkboxsElements = document.querySelectorAll("[type='checkbox']");
+//Går igenom alla element som vi hämtat
+checkboxsElements.forEach(checkbox => {
+  //På varje element lägger vi på eventet change
+  checkbox.addEventListener('change', event =>{
+    //På varje element lyssnar vi efter en ändring, när en ändring händer kan vi använda eventet som skickas tillbaka för att hitta elementet som ändrats (event.target)
+    const inputElement = event.target;
+    //Här hämtar vi det nämaste elementet till inputElementet som tillhör ett li element.
+    const listItem = inputElement.closest('li');
+    //Vi togglar, vilket innebär att om den finns, tar den bort classen men om den inte finns adderar den classen.
+    listItem.classList.toggle('inputChecked');
+  });
 });
