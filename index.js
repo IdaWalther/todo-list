@@ -1,12 +1,6 @@
-/* Ska läggas på input fältet 
- li.setAttribute('id', index); */
-
 //Skapa en array av objects to-do items
-const todos = [{title: 'Item1', isCompleted: true}, {title: 'Item2', isCompleted: false},]
+const todos = [{id:'todo_1',title: 'Item1', isCompleted: true}, {id:'todo_2', title: 'Item2', isCompleted: false},]
 console.log(todos);
-/*
-//Skapar en array med to-do items
-const todos = ["Item1", "Item2"];*/
 
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
@@ -19,6 +13,7 @@ function addItemsToList() {
   //Går igenom alla items i arrayen och skapar en li av dem
   todos.forEach((item, index) => {
     let li = document.createElement('li');
+    li.setAttribute('id', item.id);
     list.appendChild(li);
     const inputElement = document.createElement('input');
     inputElement.setAttribute('type', 'checkbox');
@@ -38,6 +33,7 @@ function addItemsToList() {
     deleteBtn.innerHTML = "X";
     li.appendChild(deleteBtn); 
   });
+  addEventListeners()
 }
 
 
@@ -51,8 +47,10 @@ function addNewItem() {
   if (addItem === '') {
     alert("You must write something");
   } else {
+  const todoId = `todo_${todos.length + 1}`;
+  console.log(todoId);
     //Lägger till ett item objekt i arrayen
-  todos.push({title: addItem, isCompleted: false});
+  todos.push({id:todoId, title: addItem, isCompleted: false});
   //Kallar på funktionen addItemsToList som ser till att HTML uppdateras
   addItemsToList();
   //Ser till att texten man skrivit in i formuläret försvinner 
@@ -67,6 +65,8 @@ todoForm.addEventListener("submit", function(event) {
   addNewItem();
 });
 
+
+function addEventListeners() {
 //Hämtar alla element som har attributet som heter type=checkbox 
 const checkboxsElements = document.querySelectorAll("[type='checkbox']");
 //Går igenom alla element som vi hämtat
@@ -81,3 +81,19 @@ checkboxsElements.forEach(checkbox => {
     listItem.classList.toggle('inputChecked');
   });
 });
+
+//Hämta alla knappar
+const buttonElements = document.querySelectorAll('button');
+//Lyssna efter click eventet
+buttonElements.forEach(button => {
+  button.addEventListener('click', event =>{
+    const deleteItem = event.target;
+    //Veta vilken knapp som är klickad på
+    const removeItem = deleteItem.closest('li'); 
+    if(removeItem){
+    //Radera li elementet genom att hitta closest li
+    removeItem.remove();
+    }
+  });
+});
+};
