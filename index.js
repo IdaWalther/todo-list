@@ -2,6 +2,7 @@
 const todos = [{id:'todo_1',title: 'Item1', isCompleted: true}, {id:'todo_2', title: 'Item2', isCompleted: false},]
 console.log(todos);
 
+
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
 
@@ -51,6 +52,7 @@ function addNewItem() {
   console.log(todoId);
     //Lägger till ett item objekt i arrayen
   todos.push({id:todoId, title: addItem, isCompleted: false});
+  
   //Kallar på funktionen addItemsToList som ser till att HTML uppdateras
   addItemsToList();
   //Ser till att texten man skrivit in i formuläret försvinner 
@@ -87,12 +89,14 @@ const buttonElements = document.querySelectorAll('button');
 //Lyssna efter click eventet
 buttonElements.forEach(button => {
   button.addEventListener('click', event =>{
-    const deleteItem = event.target;
     //Veta vilken knapp som är klickad på
+    const deleteItem = event.target;
+    //Radera li elementet genom att hitta closest li
     const removeItem = deleteItem.closest('li'); 
     if(removeItem){
-    //Radera li elementet genom att hitta closest li
     removeItem.remove();
+    //Raderar todo item från arrayen
+    todos.splice('id', 1)
     }
   });
 });

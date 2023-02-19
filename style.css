@@ -1,5 +1,14 @@
 body {
-    text-align: center !important;
+  height:100vh;
+  width:100vw;
+  background-color: rgb(202, 200, 197);
+}
+main {
+  width:50%;
+  margin: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 .newTodoItem {
     width:80%;
@@ -7,7 +16,11 @@ body {
 }
 
 li {
-  list-style-type: none
+  list-style-type: none;
+  width:350px;
+  background-color: rgb(229, 229, 235);
+  margin:20px;
+
 }
 
 .visually-hidden {
@@ -27,5 +40,15 @@ li {
 }
 
 .delete {
-margin-left:10px;
+background-color: red;
+color: white;
+border:none;
+border-radius:50%;
+cursor: pointer;
+position: absolute;
+right:0;
+}
+
+#todosList {
+  position: relative;
 }
