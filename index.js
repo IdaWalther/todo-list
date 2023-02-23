@@ -96,7 +96,8 @@ buttonElements.forEach(button => {
     if(removeItem){
     removeItem.remove();
     //Raderar todo item från arrayen
-    todos.splice('id', 1)
+    
+    todos.splice(todos.indexOf(todos), 1);
     }
   });
 });
