@@ -1,0 +1,54 @@
+body {
+  height:100vh;
+  width:100vw;
+  background-color: rgb(202, 200, 197);
+}
+main {
+  width:50%;
+  margin: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.newTodoItem {
+    width:80%;
+    border-radius:10px;
+}
+
+li {
+  list-style-type: none;
+  width:350px;
+  background-color: rgb(229, 229, 235);
+  margin:20px;
+
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.inputChecked {
+  text-decoration: line-through;
+}
+
+.delete {
+background-color: red;
+color: white;
+border:none;
+border-radius:50%;
+cursor: pointer;
+position: absolute;
+right:0;
+}
+
+#todosList {
+  position: relative;
+}
