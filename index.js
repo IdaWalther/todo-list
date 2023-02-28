@@ -79,12 +79,25 @@ checkboxsElements.forEach(checkbox => {
     const inputElement = event.target;
     //Här hämtar vi det nämaste elementet till inputElementet som tillhör ett li element.
     const listItem = inputElement.closest('li');
+    //Hitta vilket todo id som har klickats på === id_3
+    const listId = listItem.getAttribute('id');
+    //Hitta i todos vilken som har id (todo.id === 'id_3')
+    const listIndex = todos.findIndex((todo) => todo.id === listId);
+
+    console.log(listIndex);
+
+    //Se till att todo.isChecked = inputElement.checked
+
+    //uppdatera todos med den nya todon 
+
+
     //Vi togglar, vilket innebär att om den finns, tar den bort classen men om den inte finns adderar den classen.
+   
     listItem.classList.toggle('inputChecked');
   });
 });
 
-//Hämta alla knappar
+//Hämtar alla knappar
 const buttonElements = document.querySelectorAll('button');
 //Lyssna efter click eventet
 buttonElements.forEach(button => {
@@ -94,11 +107,18 @@ buttonElements.forEach(button => {
     //Radera li elementet genom att hitta closest li
     const removeItem = deleteItem.closest('li'); 
     if(removeItem){
-    removeItem.remove();
-    //Raderar todo item från arrayen
+      //använd id attributet som ligger på li = todo_3
+      const removeItemId = removeItem.getAttribute('id');
+      //hitta index som ligger på id attributet
+      const todoIndex = todos.findIndex((todo) => todo.id === removeItemId);
+      console.log(todoIndex);
     
-    todos.splice(todos.indexOf(todos), 1);
+    //  removeItem.remove();
+    //Raderar todo item från arrayen
+    todos.splice(todoIndex, 1);
+    addItemsToList();
     }
   });
 });
+
 };
