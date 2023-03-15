@@ -1,5 +1,7 @@
 //Skapa en array av objects to-do items
-const todos = [{id:'todo_1',title: 'Item1', isCompleted: true}, {id:'todo_2', title: 'Item2', isCompleted: false},]
+const savedTodos = localStorage.getItem('todos');
+console.log(savedTodos);
+const todos = [];
 console.log(todos);
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
@@ -9,6 +11,9 @@ addItemsToList();
 function addItemsToList() {
   //Ser till att innerHTML är tomt
  list.innerHTML = "";
+
+ localStorage.setItem('todos', JSON.stringify(todos));
+
   //Går igenom alla items i arrayen och skapar en li av dem
   todos.forEach((item, index) => {
     let li = document.createElement('li');
@@ -46,7 +51,8 @@ function addNewItem() {
   if (addItem === '') {
     alert("You must write something");
   } else {
-  const todoId = `todo_${todos.length + 1}`;
+  //Var tvungen att ha ett unikt id för att undvika att samma id gavs två gånger
+  const todoId = `todo_${Date.now()}`;
   console.log(todoId);
     //Lägger till ett item objekt i arrayen
   todos.push({id:todoId, title: addItem, isCompleted: false});
@@ -81,14 +87,16 @@ checkboxsElements.forEach(checkbox => {
     const listId = listItem.getAttribute('id');
     //Hitta i todos vilken som har id (todo.id === 'id_3')
     const listIndex = todos.findIndex((todo) => todo.id === listId);
+
     //Hittar all information som finns i todos, id, title, iscompleted
     let todo = todos.find((todo) => todo.id === listId);
      //Se till att todo.isChecked togglas
     todo.isCompleted = !todo.isCompleted;
-
+    console.log(todo);
     //uppdatera todos med den nya todon 
       todos.splice(listIndex, 1, todo);
       addItemsToList();
+
     //Vi togglar, vilket innebär att om den finns, tar den bort classen men om den inte finns adderar den classen.
    
     listItem.classList.toggle('inputChecked');
@@ -111,7 +119,7 @@ buttonElements.forEach(button => {
       const todoIndex = todos.findIndex((todo) => todo.id === removeItemId);
     //  removeItem.remove();
     //Raderar todo item från arrayen
-    todos.splice(todoIndex, 1);
+   todos.splice(todoIndex, 1);
     addItemsToList();
     }
   });
