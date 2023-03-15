@@ -1,8 +1,6 @@
 //Skapa en array av objects to-do items
 const todos = [{id:'todo_1',title: 'Item1', isCompleted: true}, {id:'todo_2', title: 'Item2', isCompleted: false},]
 console.log(todos);
-
-
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
 
@@ -83,14 +81,14 @@ checkboxsElements.forEach(checkbox => {
     const listId = listItem.getAttribute('id');
     //Hitta i todos vilken som har id (todo.id === 'id_3')
     const listIndex = todos.findIndex((todo) => todo.id === listId);
-
-    console.log(listIndex);
-
-    //Se till att todo.isChecked = inputElement.checked
+    //Hittar all information som finns i todos, id, title, iscompleted
+    let todo = todos.find((todo) => todo.id === listId);
+     //Se till att todo.isChecked togglas
+    todo.isCompleted = !todo.isCompleted;
 
     //uppdatera todos med den nya todon 
-
-
+      todos.splice(listIndex, 1, todo);
+      addItemsToList();
     //Vi togglar, vilket innebär att om den finns, tar den bort classen men om den inte finns adderar den classen.
    
     listItem.classList.toggle('inputChecked');
@@ -111,8 +109,6 @@ buttonElements.forEach(button => {
       const removeItemId = removeItem.getAttribute('id');
       //hitta index som ligger på id attributet
       const todoIndex = todos.findIndex((todo) => todo.id === removeItemId);
-      console.log(todoIndex);
-    
     //  removeItem.remove();
     //Raderar todo item från arrayen
     todos.splice(todoIndex, 1);
