@@ -1,8 +1,12 @@
 //Skapa en array av objects to-do items
-const savedTodos = localStorage.getItem('todos');
-console.log(savedTodos);
-const todos = [];
-console.log(todos);
+let todos = [];
+//Hämtar sparade todos
+const savedTodos = JSON.parse(localStorage.getItem('todos'));
+//Om det finns sparade todos uppdateras variabeln todos med de som är sparade i localstorage 
+if(savedTodos.length){
+todos = savedTodos;
+}
+
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
 
@@ -11,7 +15,7 @@ addItemsToList();
 function addItemsToList() {
   //Ser till att innerHTML är tomt
  list.innerHTML = "";
-
+//Sparar todos i local storage
  localStorage.setItem('todos', JSON.stringify(todos));
 
   //Går igenom alla items i arrayen och skapar en li av dem
@@ -39,7 +43,6 @@ function addItemsToList() {
   });
   addEventListeners()
 }
-
 
 //Hämtar formuläret
 const todoForm = document.querySelector(".js-form-todo");
