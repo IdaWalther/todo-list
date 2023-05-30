@@ -9,6 +9,8 @@ todos = savedTodos;
 
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
+//Hämtar elementet med IDtodosListChecked
+const listCompleted = document.querySelector("#todosListChecked");
 
 //Kallar funktionen addItemsToList när sidan laddas
 addItemsToList();
@@ -19,29 +21,55 @@ function addItemsToList() {
  localStorage.setItem('todos', JSON.stringify(todos));
 
   //Går igenom alla items i arrayen och skapar en li av dem
-  todos.forEach((item, index) => {
-    let li = document.createElement('li');
-    li.setAttribute('id', item.id);
-    list.appendChild(li);
-    const inputElement = document.createElement('input');
-    inputElement.setAttribute('type', 'checkbox');
-    
-    if(item.isCompleted){
-      inputElement.setAttribute('checked', true);
-      li.classList.add('inputChecked');
-    } 
-    const labelElement = document.createElement('label');
-    labelElement.setAttribute('for', `id_${index}`);
-    labelElement.innerHTML = item.title;
+  todos.forEach((item, index) => {   
+    if(!item.isCompleted){
+      let li = document.createElement('li');
+      li.setAttribute('id', item.id);
+      list.appendChild(li);
+      const inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'checkbox');
+      const labelElement = document.createElement('label');
+      labelElement.setAttribute('for', `id_${index}`);
+      labelElement.innerHTML = item.title;
     li.appendChild(inputElement);
     li.appendChild(labelElement);
-
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete");
     deleteBtn.innerHTML = "X";
     li.appendChild(deleteBtn); 
+    } 
   });
-  addEventListeners()
+  addCompleteItemsToList();
+  addEventListeners();
+}
+
+function addCompleteItemsToList() {
+  //Ser till att innerHTML är tomt
+  listCompleted.innerHTML = "";
+
+  //Går igenom alla items i arrayen och skapar en li av dem
+  todos.forEach((item, index) => {
+    if(item.isCompleted){
+      let li = document.createElement('li');
+      li.setAttribute('id', item.id);
+      listCompleted.appendChild(li);
+      const inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'checkbox');
+      inputElement.setAttribute('checked', true);
+      li.classList.add('inputChecked');
+
+      const labelElement = document.createElement('label');
+      labelElement.setAttribute('for', `id_${index}`);
+      labelElement.innerHTML = item.title;
+      li.appendChild(inputElement);
+      li.appendChild(labelElement);
+  
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("delete");
+      deleteBtn.innerHTML = "X";
+      li.appendChild(deleteBtn); 
+    } 
+  });
 }
 
 //Hämtar formuläret
@@ -104,7 +132,9 @@ checkboxsElements.forEach(checkbox => {
    
     listItem.classList.toggle('inputChecked');
   });
+
 });
+
 
 //Hämtar alla knappar
 const buttonElements = document.querySelectorAll('button');
@@ -127,5 +157,5 @@ buttonElements.forEach(button => {
     }
   });
 });
-
 };
+
