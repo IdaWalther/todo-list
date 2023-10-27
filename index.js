@@ -3,9 +3,9 @@ let todos = [];
 //Hämtar sparade todos
 const savedTodos = JSON.parse(localStorage.getItem('todos'));
 //Om det finns sparade todos uppdateras variabeln todos med de som är sparade i localstorage 
-if(savedTodos.length){
+if(savedTodos !== null){
 todos = savedTodos;
-}
+} 
 
 //Hämtar elementet med ID todosList 
 const list = document.querySelector("#todosList");
